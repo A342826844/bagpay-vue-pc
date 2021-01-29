@@ -331,6 +331,26 @@
                         this.downloadHandle('http://x100.oss-ap-southeast-1.aliyuncs.com/app/bagpay.apk');
                     })
                 },
+                getLanguageHandle() {
+                    var language = navigator.language.toLowerCase();
+                    var getQueryUrl = (query) => {
+                        var querys = `${query}`.split('&');
+                        var res = {};
+                        querys.forEach(function(item) {
+                            var values = item.split('=');
+                            res[values[0]] = values[1];
+                        });
+                        return res;
+                    };
+                    var query = getQueryUrl(location.search.slice(1));
+                    if (language.indexOf('zh') !== -1) {
+                        // location.href = "/zh-cn/"
+                    } else if (language.indexOf('tw') !== -1){
+                        location.href = "/zh-tw/";
+                    } else {
+                        location.href = "/en-us/"
+                    }
+                },
                 goTop() {
                     var topLogo = this.$refs.topLogo;
                     if (topLogo) {
